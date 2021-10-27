@@ -1,20 +1,29 @@
 import 'package:aps8/app/modules/shared/models/data_model.dart';
 import 'package:dio/dio.dart';
 
+import '../models/data_model.dart';
+
 class AuthRepository {
   final Dio dio;
 
   AuthRepository({required this.dio}) {
     dio.options.receiveTimeout = 36000;
+    dio.options.baseUrl = 'http://localhost:5001/';
   }
 
 //----------------------------------------------------------------------------
   Future<List<DataModel>> getData() async {
     try {
-      // Response response =
-      //     await dio.get('https://localhost:44360/api/Iso').catchError((e) {});
+      Response response = await dio.get('api/Iso').catchError((e) {});
 
-      return data.map((e) => DataModel.fromJson(e)).toList();
+      List<DataModel> dataModels = [];
+
+      (response.data as List).forEach((element) {
+        dataModels.add(DataModel.fromJson(element));
+      });
+
+      return dataModels;
+      // return data.map((e) => DataModel.fromJson(e)).toList();
     } catch (e) {
       print(e);
       return [];
@@ -23,7 +32,7 @@ class AuthRepository {
 //----------------------------------------------------------------------------
 }
 
-final List<Map<String, String>> data = [
+final List<Map<String, dynamic>> data = [
   {
     "title": "ISO 14.000",
     "description":

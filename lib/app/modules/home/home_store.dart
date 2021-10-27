@@ -22,7 +22,13 @@ abstract class HomeStoreBase with Store {
     dataModels = await authController.getData();
 
     dataModels.forEach((element) {
-      element.description!.replaceAll('/r/n', '\r\n\n');
+      String text = '';
+      List<String> descriptionParts = element.description!.split('.');
+
+      descriptionParts.forEach((elementDescription) {
+        text += '${elementDescription}.\n';
+      });
+      element.description = text;
     });
     getYouTubeControllers();
   }
