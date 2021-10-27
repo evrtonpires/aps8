@@ -91,3 +91,8 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+scripts:
+  #comando para rodar os scripts ' slidy run NomeScript
+  #flutter packages pub run build_runner build --delete-conflicting-outputs
+  mobxWatch: flutter packages pub run build_runner watch --delete-conflicting-outputs
+  mobxBuild: flutter packages pub run build_runner build --delete-conflicting-outputs
